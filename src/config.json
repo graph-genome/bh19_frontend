@@ -1,0 +1,32 @@
+{
+  "BACKEND_URL": false,
+  "DATA_SOURCES": [
+    {
+      "name": "snp1kg-BRCA1",
+      "xgFile": "snp1kg-BRCA1.vg.xg",
+      "gamFile": "NA12878-BRCA1.sorted.gam",
+      "anchorTrackName": "17",
+      "useMountedPath": false,
+      "defaultPosition": "1"
+    },
+    {
+      "name": "cactus",
+      "xgFile": "cactus.vg.xg",
+      "gamFile": "cactus-NA12879.sorted.gam",
+      "anchorTrackName": "ref",
+      "useMountedPath": false,
+      "defaultPosition": "1"
+    },
+    {
+      "name": "vg \"small\" example",
+      "xgFile": "x.vg.xg",
+      "gbwtFile": "x.vg.gbwt",
+      "anchorTrackName": "x",
+      "useMountedPath": false,
+      "defaultPosition": "1"
+    }
+  ],
+  "vgPath": "",
+  "dataPath": "./exampleData/",
+  "internalDataPath": "./exampleData/"
+}
