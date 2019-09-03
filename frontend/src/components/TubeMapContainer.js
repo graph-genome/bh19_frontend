@@ -118,14 +118,20 @@ class TubeMapContainer extends Component {
         tracks = data.inputTracks5;
         break;
       case dataOriginTypes.EXAMPLE_6:
-        const vg = JSON.parse(data.k3138);
+        const vg = JSON.parse(data.vg_tiny);
         nodes = tubeMap.vgExtractNodes(vg);
         tracks = tubeMap.vgExtractTracks(vg);
-        reads = tubeMap.vgExtractReads(
+        reads = [];
+/*        reads = tubeMap.vgExtractReads(
           nodes,
           tracks,
           this.readsFromStringToArray(data.demoReads)
-        );
+        );*/
+        break;
+      case dataOriginTypes.EXAMPLE_7:
+        const blocks = JSON.parse(data.blocks_tiny);
+        nodes = tubeMap.blocksExtractNodes(blocks);
+        tracks = tubeMap.vgExtractTracks(blocks);
         break;
       default:
         console.log('invalid data origin type');

@@ -31,7 +31,8 @@ class App extends Component {
         forwardReadColors: 'reds',
         reverseReadColors: 'blues',
         colorReadsByMappingQuality: false,
-        mappingQualityCutoff: 0
+        mappingQualityCutoff: 0,
+        blocks: false
       }
     };
   }

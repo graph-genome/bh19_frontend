@@ -113,7 +113,9 @@ const config = {
   exonColors: 'lightColors',
   hideLegendFlag: false,
   colorReadsByMappingQuality: false,
-  mappingQualityCutoff: 0
+  mappingQualityCutoff: 0,
+  blocks: false,
+  node_width: 10
 };
 
 // variables for storing info which can be directly translated into drawing instructions
@@ -138,6 +140,12 @@ export function create(params) {
   svgID = params.svgID;
   svg = d3.select(params.svgID);
   inputNodes = JSON.parse(JSON.stringify(params.nodes)); // deep copy
+  // do we have to visualize blocks?
+  if (!inputNodes[0].hasOwnProperty('seq')) {
+    config.blocks = true;
+  } else {
+    config.blocks = false;
+  }
   inputTracks = JSON.parse(JSON.stringify(params.tracks)); // deep copy
   inputReads = params.reads || null;
   bed = params.bed || null;
@@ -155,7 +163,7 @@ function moveTrackToFirstPosition(index) {
 }
 
 // straighten track given by index by inverting inverted nodes
-// only keep them inverted if this single track runs thrugh them in both directions
+// only keep them inverted if this single track runs through them in both directions
 function straightenTrack(index) {
   let i;
   let j;
@@ -383,6 +391,14 @@ function createTubeMap() {
     generateTrackIndexSequences(reads);
     placeReads();
     tracks = tracks.concat(reads);
+
+    // we do not have any reads to display
+  } else {
+    nodes.forEach(node => {
+      node.incomingReads = [];
+      node.outgoingReads = [];
+      node.internalReads = [];
+    });
   }
 
   generateSVGShapesFromPath(nodes, tracks);
@@ -2865,7 +2881,7 @@ function getPopUpText(node) {
 
 // draw seqence labels for nodes
 function drawLabels(dNodes) {
-  if (config.nodeWidthOption === 0) {
+  if (config.nodeWidthOption === 0 && !config.blocks) {
     svg
       .selectAll('text')
       .data(dNodes)
@@ -3317,6 +3333,18 @@ function nodeDoubleClick() {
   }
 }
 
+// extract info about nodes from blocks-json
+export function blocksExtractNodes(blocks) {
+  const result = [];
+  blocks.node.forEach(node => {
+    result.push({
+      name: `${node.id}`,
+      sequenceLength: node.sequenceLength,
+    });
+  });
+  return result;
+}
+
 // extract info about nodes from vg-json
 export function vgExtractNodes(vg) {
   const result = [];
@@ -3354,22 +3382,25 @@ function generateNodeWidth() {
     default:
       nodes.forEach(node => {
         node.width = node.sequenceLength;
-
-        // get width of node's text label by writing label, measuring it and removing label
-        svg
-          .append('text')
-          .attr('x', 0)
-          .attr('y', 100)
-          .attr('id', 'dummytext')
-          .text(node.seq.substr(1))
-          .attr('font-family', 'Courier, "Lucida Console", monospace')
-          .attr('font-size', '14px')
-          .attr('fill', 'black')
-          .style('pointer-events', 'none');
-        node.pixelWidth = Math.round(
-          document.getElementById('dummytext').getComputedTextLength()
-        );
-        document.getElementById('dummytext').remove();
+        if (config.blocks) {
+          node.pixelWidth = node.sequenceLength * config.node_width;
+        } else {
+          // get width of node's text label by writing label, measuring it and removing label
+          svg
+              .append('text')
+              .attr('x', 0)
+              .attr('y', 100)
+              .attr('id', 'dummytext')
+              .text(node.seq.substr(1))
+              .attr('font-family', 'Courier, "Lucida Console", monospace')
+              .attr('font-size', '14px')
+              .attr('fill', 'black')
+              .style('pointer-events', 'none');
+          node.pixelWidth = Math.round(
+              document.getElementById('dummytext').getComputedTextLength()
+          );
+          document.getElementById('dummytext').remove();
+        }
         // $('#dummytext').remove();
       });
   }
@@ -3377,6 +3408,10 @@ function generateNodeWidth() {
 
 // extract track info from vg-json
 export function vgExtractTracks(vg) {
+  let filtered_paths = vg.path.filter(function(value, index, arr) {
+    return value.hasOwnProperty('mapping');
+  });
+  vg.path = filtered_paths;
   const result = [];
   vg.path.forEach((path, index) => {
     const sequence = [];
