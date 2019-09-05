@@ -14,7 +14,8 @@ class TubeMapContainer extends Component {
   };
 
   componentDidMount() {
-    this.getRemoteTubeMapData();
+    // this.getRemoteTubeMapData();
+    this.getExampleData();
   }
 
   componentDidUpdate(prevProps) {
@@ -131,14 +132,8 @@ class TubeMapContainer extends Component {
       case dataOriginTypes.EXAMPLE_7:
         const demon = JSON.parse(data.blocks_tiny);
         nodes = demon.nodes;
-        console.log("NODES");
-        console.log(nodes);
         tracks = demon.tracks;
-        console.log("TRACKS");
-        console.log(tracks);
         reads = demon.reads;
-        console.log("READS");
-        console.log(reads);
         break;
       default:
         console.log('invalid data origin type');

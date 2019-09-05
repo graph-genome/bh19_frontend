@@ -95,7 +95,7 @@ let extraRight = []; // info whether nodes have to be moved further apart becaus
 let maxOrder; // horizontal order of the rightmost node
 
 const config = {
-  mergeNodesFlag: true,
+  mergeNodesFlag: false,
   transparentNodesFlag: false,
   clickableNodesFlag: false,
   showExonsFlag: false,
@@ -115,7 +115,7 @@ const config = {
   colorReadsByMappingQuality: false,
   mappingQualityCutoff: 0,
   blocks: false,
-  node_width: 10
+  node_width: 1
 };
 
 // variables for storing info which can be directly translated into drawing instructions
@@ -904,6 +904,10 @@ function reverseReversedReads() {
           } else if (mm.type === 'substitution') {
             mm.pos = nodeWidth - mm.pos - mm.seq.length;
             mm.seq = getReverseComplement(mm.seq);
+          } else if (mm.type === 'link') {
+            mm.pos = nodeWidth - mm.pos - mm.length;
+            console.log(mm)
+            // mm.query = javascript execute
           }
           if (mm.hasOwnProperty('seq')) {
             mm.seq = mm.seq
@@ -3897,6 +3901,12 @@ function drawMismatches() {
               mm.pos + mm.seq.length
             );
             drawSubstitution(x + 1, x2, y + 7, node.y, mm.seq);
+          } else if (mm.type === 'link') {
+            const x2 = getXCoordinateOfBaseWithinNode(
+                node,
+                mm.pos + mm.seq.length
+            );
+            drawLink(x + 1, x2, y + 7, node.y, mm.seq, mm.query);
           }
         });
       });
@@ -3932,7 +3942,29 @@ function drawSubstitution(x1, x2, y, nodeY, seq) {
     .attr('nodeY', nodeY)
     .attr('rightX', x2)
     .on('mouseover', substitutionMouseOver)
-    .on('mouseout', substitutionMouseOut);
+    .on('mouseout', substitutionMouseOut)
+    .on('click', linkMouseClick);
+}
+
+function drawLink(x1, x2, y, nodeY, seq, query) {
+  svg
+      .append('text')
+      .attr('x', x1)
+      .attr('y', y)
+      .attr('query', query)
+      .text(seq)
+      .attr('font-family', 'Courier, "Lucida Console", monospace')
+      .attr('font-size', '12px')
+      .attr('fill', 'black')
+      .attr('nodeY', nodeY)
+      .attr('rightX', x2)
+      .on('mouseover', substitutionMouseOver)
+      .on('mouseout', substitutionMouseOut)
+      .on('click', linkMouseClick);
+}
+
+function linkMouseClick() {
+  window.open(this.getAttribute('query'));
 }
 
 function drawDeletion(x1, x2, y, nodeY) {

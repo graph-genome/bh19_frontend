@@ -208,7 +208,7 @@ export const blocks_tiny = `
       "firstNodeOffset": 0,
       "finalNodeCoverLength": 42,
       "mapping_quality": 0,
-      "is_secondary": true
+      "is_secondary": false
     },
     {
       "id": 4,
@@ -245,9 +245,10 @@ export const blocks_tiny = `
           "nodeName": "1",
           "mismatches": [
             {
-              "type": "substitution",
+              "type": "link",
               "pos": 7,
-              "seq": "LINK"
+              "seq": "LINK",
+              "query": "https://github.com/graph-genome"
             }
           ]
         },

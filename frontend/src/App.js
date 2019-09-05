@@ -20,10 +20,10 @@ class App extends Component {
         anchorTrackName: '17',
         dataPath: 'default'
       },
-      dataOrigin: dataOriginTypes.API,
+      dataOrigin: dataOriginTypes.EXAMPLE_7,
       visOptions: {
         removeRedundantNodes: false,
-        compressedView: true,
+        compressedView: false,
         transparentNodes: true,
         showReads: true,
         showSoftClips: true,
