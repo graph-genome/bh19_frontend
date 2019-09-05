@@ -1,0 +1,155 @@
+{
+  "nodes": [
+    {
+      "name": "1",
+      "sequenceLength": 100
+    },
+    {
+      "name": "2",
+      "sequenceLength": 100
+    },
+    {
+      "name": "3",
+      "sequenceLength": 100
+    }
+  ],
+  "tracks": [
+      {
+        "id": 0,
+        "sequence": [
+          "1",
+          "2",
+          "3"
+        ],
+        "name": "REF"
+      }
+  ],
+  "reads": [
+    {
+      "id": 1,
+      "sequence": [
+        "1"
+      ],
+      "sequenceNew": [
+        {
+          "nodeName": "1",
+          "mismatches": [
+            {
+              "type": "substitution",
+              "pos": 10,
+              "seq": "C"
+            }
+          ]
+        }
+      ],
+      "type": "read",
+      "firstNodeOffset": 0,
+      "finalNodeCoverLength": 42,
+      "mapping_quality": 552,
+      "is_secondary": false
+    },
+    {
+      "id": 2,
+      "sequence": [
+        "1",
+        "2"
+      ],
+      "sequenceNew": [
+        {
+          "nodeName": "1",
+          "mismatches": [
+
+          ]
+        },
+        {
+          "nodeName": "2",
+          "mismatches": []
+        }
+      ],
+      "type": "read",
+      "firstNodeOffset": 0,
+      "finalNodeCoverLength": 20,
+      "mapping_quality": 439,
+      "is_secondary": false
+    },
+    {
+      "id": 3,
+      "sequence": [
+        "1"
+      ],
+      "sequenceNew": [
+        {
+          "nodeName": "1",
+          "mismatches": [
+            {
+              "type": "substitution",
+              "pos": 0,
+              "seq": "T"
+            }
+          ]
+        }
+      ],
+      "type": "read",
+      "firstNodeOffset": 0,
+      "finalNodeCoverLength": 42,
+      "mapping_quality": 0,
+      "is_secondary": true
+    },
+    {
+      "id": 4,
+      "sequence": [
+        "1"
+      ],
+      "sequenceNew": [
+        {
+          "nodeName": "1",
+          "mismatches": [
+            {
+              "type": "substitution",
+              "pos": 0,
+              "seq": "G"
+            }
+          ]
+        }
+      ],
+      "type": "read",
+      "firstNodeOffset": 0,
+      "finalNodeCoverLength": 24,
+      "mapping_quality": 742,
+      "is_secondary": false
+    },
+    {
+      "id": 5,
+      "sequence": [
+        "1",
+        "2",
+        "3"
+      ],
+      "sequenceNew": [
+        {
+          "nodeName": "1",
+          "mismatches": [
+            {
+              "type": "substitution",
+              "pos": 7,
+              "seq": "G"
+            }
+          ]
+        },
+        {
+          "nodeName": "2",
+          "mismatches": []
+        },
+        {
+          "nodeName": "3",
+          "mismatches": []
+        }
+      ],
+      "type": "read",
+      "firstNodeOffset": 50,
+      "finalNodeCoverLength": 50,
+      "mapping_quality": 629,
+      "is_secondary": false
+    }
+  ]
+}

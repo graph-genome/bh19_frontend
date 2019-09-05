@@ -22,9 +22,9 @@ class App extends Component {
       },
       dataOrigin: dataOriginTypes.API,
       visOptions: {
-        removeRedundantNodes: true,
-        compressedView: false,
-        transparentNodes: false,
+        removeRedundantNodes: false,
+        compressedView: true,
+        transparentNodes: true,
         showReads: true,
         showSoftClips: true,
         haplotypeColors: 'greys',
