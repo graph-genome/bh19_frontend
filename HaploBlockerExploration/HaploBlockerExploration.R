@@ -66,7 +66,7 @@ yeast <- read.delim('seqwish_yeast_l10k.og.haps.tsv.gz')
 rownames(yeast) <- yeast$node.id
 yeast <- yeast[,-1]
 
-yeast_blocks <- block_calculation(yeast, target_coverage = 0.99)
-pdf("yeast_blocks")
+yeast_blocks <- block_calculation(yeast, node_min = 2, edge_min = 2, window_size = 10, min_majorblock = 1)
+pdf("yeast_blocks_window_size_10")
 plot_block(yeast_blocks)
 dev.off()
