@@ -2192,6 +2192,9 @@ function calculateTrackWidth() {
       if (track.hasOwnProperty('type') && track.type === 'read') {
         track.width = 4;
       }
+      if (track.hasOwnProperty('name') && track.name === 'REF') {
+          track.width = 0;
+      }
     }
     if (track.width !== 4) {
       allAreFour = false;
